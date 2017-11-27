@@ -6,10 +6,10 @@ from flask import render_template, flash, redirect, url_for, request, g
 from flask import send_from_directory
 from flask_login import login_user, logout_user, current_user, login_required
 
-from app import app, login_manager
-from .forms import LoginForm
+from app import app, login_manager, db
 from .models import User, Party
-
+from sqlalchemy import update
+from .forms import LoginForm
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -17,8 +17,8 @@ def load_user(user_id):
 
 
 def validateAndAdd(party_name):
-    ## implement me!
-    pass
+    party = Party.query.filter_by(name=party_name).first()
+    party.votes = party.votes + 1
 
 
 @app.route('/', methods=['GET'])
@@ -26,7 +26,12 @@ def validateAndAdd(party_name):
 @login_required
 def index():
     if request.method == 'POST':
-        validateAndAdd(request.form['party_name'])
+        value = request.form.getlist('party_name')
+        if value:
+            validateAndAdd(request.form['party_name'])
+            user = User.query.filter_by(id=current_user.id).first() #imp
+            user.voted = True #imp
+        db.session.commit() #imp
         return redirect(url_for('login'))
     g.user = current_user #global user parameter used by flask framwork
     parties = Party.query.all() #this is a demo comment
@@ -40,20 +45,22 @@ def index():
 def login():
     error = None
     if request.method == 'POST':
-
         ## Validate user
-        first_name = request.form['first_name']
-        if first_name == "tomer":
-            user = User.query.filter_by(first_name=first_name).first()
-            login_user(user)  ## built in 'flask login' method that creates a user session
-            return redirect(url_for('index'))
-
-        else: ##validation error
+        _first_name = request.form['first_name']
+        _last_name = request.form['last_name']
+        _user_id = request.form['id']
+        user = User.query.filter_by(first_name= _first_name, last_name= _last_name, id= _user_id).first()
+        if user:
+            if user.voted:
+                error = u'משתמש זה הצביע כבר בעבר'
+            else:
+                login_user(user)  ## built in 'flask login' method that creates a user session
+                return redirect(url_for('index'))
+        else:  ##validation error
             error = u'המצביע אינו מופיע בבסיס הנתונים'
 
     return render_template('login.html',
                            error=error)
-
 
 ## will handle the logout request
 @app.route('/logout')
