@@ -52,7 +52,7 @@ def login():
         user = User.query.filter_by(first_name= _first_name, last_name= _last_name, id= _user_id).first()
         if user:
             if user.voted:
-                error = u'משתמש זה הצביע כבר בעבר'
+                error = u'משתמש זה הצביע כבר בעבר!'
             else:
                 login_user(user)  ## built in 'flask login' method that creates a user session
                 return redirect(url_for('index'))
