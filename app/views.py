@@ -57,10 +57,9 @@ def login():
                 login_user(user)  ## built in 'flask login' method that creates a user session
                 return redirect(url_for('index'))
         else:  ##validation error
-            error = u'המצביע אינו מופיע בבסיס הנתונים'
+            error = 'User not found!'
 
-    return render_template('login.html',
-                           error=error)
+    return render_template('login.html', error=error)
 
 ## will handle the logout request
 @app.route('/logout')
