@@ -38,7 +38,7 @@ class IntegrationTests(unittest.TestCase):
         delay = 3  # seconds
 
     def test_login_user(self):
-        firstName, lastName, id = "tomer", "admon", 1111
+        firstName, lastName, id = "tomer", "admon", 888
         elem = self.driver.find_element_by_css_selector('body > div > form > input.btn.btn-default')  # submit button
         firstNameInputElement = self.driver.find_element_by_id("first_name")
         firstNameInputElement.send_keys(firstName)
