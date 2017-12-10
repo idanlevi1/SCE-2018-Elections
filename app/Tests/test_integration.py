@@ -32,7 +32,7 @@ class IntegrationTests(unittest.TestCase):
         db.session.add(lavan1)
         db.session.commit()
 
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.PantomJS()
         self.driver.get("http://localhost:5000/")
         self.driver.maximize_window()
         delay = 3  # seconds
