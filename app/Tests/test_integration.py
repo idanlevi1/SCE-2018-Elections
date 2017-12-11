@@ -36,7 +36,7 @@ class IntegrationTests(unittest.TestCase):
         self.driver.get(self.get_server_url())
         self.driver.maximize_window()
         delay = 3  # seconds
-    @TESTING
+
     def test_login_user(self):
         firstName, lastName, id = "tomer", "admon", 1111
         elem = self.driver.find_element_by_css_selector('body > div > form > input.btn.btn-default')  # submit button
@@ -50,7 +50,7 @@ class IntegrationTests(unittest.TestCase):
         #elem.click()  # submit button
         time.sleep(2)
         assert 'Home' in self.driver.title
-    @TESTING
+
     def test_user_not_in_database(self):
         firstName, lastName, id = "aaa", "bbb", 900
         elem = self.driver.find_element_by_css_selector('body > div > form > input.btn.btn-default')  # submit button
