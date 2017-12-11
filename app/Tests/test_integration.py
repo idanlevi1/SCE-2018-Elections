@@ -33,7 +33,7 @@ class IntegrationTests(unittest.TestCase):
         db.session.commit()
 
         self.driver = webdriver.PhantomJS()
-        self.driver.get("http://localhost:5000/")
+        self.driver.get(self.get_server_url())
         self.driver.maximize_window()
         delay = 3  # seconds
     @TESTING
