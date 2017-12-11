@@ -23,7 +23,7 @@ class IntegrationTests(unittest.TestCase):
         db.create_all()
         db.session.commit()
         admon1 = User('tomer', 'admon', 1111)
-        avoda1 = Party(u'העבודה','https://www.am-1.org.il/wp-content/uploads/2015/03/%D7%94%D7%A2%D7%91%D7%95%D7%93%D7%94.-%D7%A6%D7%99%D7%9C%D7%95%D7%9D-%D7%99%D7%97%D7%A6.jpg')
+        avoda1 = Party(u'העבודה','http://www.havoda.org.il/wp-content/themes/mega_theme_havoda/images/logo.png')
         likud1 = Party(u'הליכוד','https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Likud_Logo.svg/250px-Likud_Logo.svg.png')
         lavan1 = Party(u'פתק לבן','https://www.weberthai.com/fileadmin/user_upload/01_training-elements/02.4_others/02.5_color_cards/05_color_mosaic/images/1.jpg')
         db.session.add(admon1)
