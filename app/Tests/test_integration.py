@@ -15,6 +15,9 @@ class IntegrationTests(unittest.TestCase):
     TESTING = True
 
     def create_app(self):
+        app.config['TESTING'] = True
+        app.config['LIVESERVER_PORT'] = 8943
+        app.config['LIVESERVER_TIMEOUT'] = 10
         db.init_app(app)
         return app
 
