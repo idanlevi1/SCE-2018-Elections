@@ -28,11 +28,12 @@ def index():
     if request.method == 'POST':
         value = request.form.getlist('party_name')
         if value:
-            validateAndAdd(request.form['party_name'])
-            user = User.query.filter_by(id=current_user.id).first() #imp
-            user.voted = True #imp
-        db.session.commit() #imp
-        return redirect(url_for('login'))
+            party_name =request.form['party_name']
+
+
+
+            return redirect(url_for('confirm',party_name=party_name))
+
     g.user = current_user #global user parameter used by flask framwork
     parties = Party.query.all() #this is a demo comment
     return render_template('index.html',
@@ -40,6 +41,22 @@ def index():
                            user=g.user,
                            parties=parties)
 
+@app.route('/confirm/<party_name>', methods=['GET', 'POST'])
+@login_required
+def confirm(party_name):
+    if request.method == 'POST':
+        if request.form['action'] == 'conf':
+            validateAndAdd(party_name)
+            user = User.query.filter_by(id=current_user.id).first()  # imp
+            user.voted = True  # imp
+            db.session.commit()  # imp
+            logout_user()
+            return redirect(url_for('index'))
+        elif request.form['action'] == 'cancel':
+            return redirect(url_for('index'))
+    return render_template('confirm.html',
+                           title='confirm',
+                           party_name=party_name)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
