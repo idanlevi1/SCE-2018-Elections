@@ -10,7 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 import time
 
-class IntegrationTests(unittest.TestCase):
+class IntegrationTests(LiveServerTestCase):
     SQLALCHEMY_DATABASE_URI = "sqlite://"
     TESTING = True
 
