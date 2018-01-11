@@ -36,8 +36,8 @@ class IntegrationTests(unittest.TestCase):
         db.session.commit()
 
         self.driver = webdriver.Chrome()
-       # self.driver.get(self.get_server_url())
-        self.driver.get('http://localhost:5000/')
+        self.driver.get(self.get_server_url())
+     #   self.driver.get('http://localhost:5000/')
         self.driver.maximize_window()
         delay = 3  # seconds...
 
@@ -82,14 +82,11 @@ class IntegrationTests(unittest.TestCase):
         idInputElement.send_keys(Keys.ENTER)
         time.sleep(2)
         #index page
-        party = self.driver.find_element_by_css_selector('#someParty > label > div > div > img')
-        party.click()
-        choose = self.driver.find_element_by_css_selector('body > div.container > form > div.submitbote > button')
-        choose.click()
+        self.driver.find_element_by_css_selector('#someParty > label > div > div > img').click()
+        self.driver.find_element_by_css_selector('body > div.container > form > div.submitbote > button').click()
         time.sleep(2)
         # confirm page
-        confirm = self.driver.find_element_by_css_selector('body > div > form > div > button.btn.btn-lg.btn-success')
-        confirm.click()
+        self.driver.find_element_by_css_selector('body > div > form > div > button.btn.btn-lg.btn-success').click()
         # back to main page
         time.sleep(2)
         firstName, lastName, id = "idan", "levi", 3333
