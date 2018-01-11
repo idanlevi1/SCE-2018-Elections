@@ -35,7 +35,8 @@ class IntegrationTests(unittest.TestCase):
         db.session.add(lavan1)
         db.session.commit()
 
-        self.driver = webdriver.Chrome()
+     #   self.driver = webdriver.Chrome()
+        self.driver = webdriver.PhantomJS()
         self.driver.get(self.get_server_url())
      #   self.driver.get('http://localhost:5000/')
         self.driver.maximize_window()
